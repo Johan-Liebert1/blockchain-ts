@@ -66,11 +66,10 @@ const createNewBlock = (data: string): Block => {
 		newTimestamp
 	);
 
+	addBlock(newBlock);
+
 	return newBlock;
 };
-
-console.log(createNewBlock("hello"));
-console.log(createNewBlock("bye"));
 
 const getHashForBlock = (block: Block): string =>
 	Block.calculateBlockHash(
@@ -93,5 +92,17 @@ const isBlockValid = (candidateBlock: Block, previousBlock: Block): boolean => {
 		return true;
 	}
 };
+
+const addBlock = (candidateBlock: Block): void => {
+	if (isBlockValid(candidateBlock, getLatestBlock())) {
+		blockChain.push(candidateBlock);
+	}
+};
+
+createNewBlock("new block 1");
+createNewBlock("new block 2");
+createNewBlock("new block 3");
+
+console.log(blockChain);
 
 export {};
